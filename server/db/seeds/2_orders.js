@@ -5,9 +5,9 @@ exports.seed = (knex) => {
     .then( () => {
       // Inserts seed entries
       return knex('orders').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+        {id: 1, order_code: ''},
+        {id: 2, order_code: ''},
+        {id: 3, order_code: ''}
       ]);
     });
 };
