@@ -4,7 +4,7 @@
   "description": "A simple pick-up and pay shopping app",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon server",
+    "dev": "nodemon server",
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/meetjohngray/eda-react-fullstack#readme",
   "dependencies": {
+    "csv-parser": "^2.3.3",
     "express": "^4.17.1",
     "jest": "^26.6.0",
     "knex": "^0.21.6",
