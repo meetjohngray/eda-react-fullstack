@@ -7,6 +7,6 @@ const config = require('./knexfile')
 const env = process.env.NODE_ENV || 'development'
 // Configure the db connection
 // Get the right configs from knexfile.js based on which env we are using
-const connnection = knex(config[env])
+const connection = knex(config[env])
 
 module.exports = connection
