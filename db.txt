@@ -1,0 +1,95 @@
+// Creating tables
+Table orders {
+  id integer [pk, increment] // auto-increment
+  order_code string
+}
+
+Table products {
+  id integer [pk, increment] // auto-increment
+  title string
+  description string
+  image string
+}
+
+Table order_lines {
+  product_id integer
+  order_id integer
+  quantity integer
+}
+
+Ref: "products"."id" < "order_lines"."product_id"
+
+Ref: "orders"."id" < "order_lines"."order_id"
+
+Routes:
+
+GET /api/products
+
+[
+  {
+    "id": 1,
+    "title": '',
+    "image": ''
+  },
+  {
+    "id": 1,
+    "title": ''
+    "image": ''
+  },
+]
+
+Create order API
+POST /api/orders
+
+request
+[
+    {
+      "product_id": 1,
+      "quantity": 2,
+    },
+    {
+      "product_id": 3,
+      "quantity": 1,
+    },
+]
+
+response
+{
+  id: 13,
+  order_code: "ABC123",
+}
+
+Error conditions:
+
+Code 500
+{
+  "message": "Something went wrong",
+}
+
+Frontend State:
+
+{
+  products: [
+    {
+      id: 1,
+      title: '',
+      image: '',
+    },
+    {
+      id: 1,
+      title: '',
+      image: '',
+    },
+  ],
+  cart: [
+    {
+      product_id: 1,
+      quantity: 2,
+    },
+  ],
+  message: {
+    type: 'info'  // info, warning or error
+    text: 'this is a message'
+  }
+
+}
