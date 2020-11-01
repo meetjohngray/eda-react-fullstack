@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getProducts } from '../apis/products'
-import { setProducts } from '../actions/index'
+import { addToCart, setProducts } from '../actions/index'
 
 
 const imagePlaceholder = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fthealmanian.com%2Fwp-content%2Fuploads%2F2019%2F01%2Fproduct_image_thumbnail_placeholder.png&f=1&nofb=1"
@@ -24,7 +24,7 @@ class App extends React.Component {
         //   products: products,
         //  })
 
-        this.props.dispatch(setProducts(products ))
+        this.props.dispatch(setProducts(products))
       })
   }
 
@@ -36,13 +36,20 @@ class App extends React.Component {
 
     return (
       <>
-        <h1>Hello there!</h1>
-        <ul>
+        <h1>Go Shopping!</h1>
+        <ul className="products">
            {products.map(p => {
              return ( 
-               <li key={p.id}>
+               <li className="product" key={p.id}>
                  <h3>{p.title}</h3>
-                 <img src={ p.image || imagePlaceholder } style={{ maxWidth: '200px'}}/>
+                 <img src={ p.image || imagePlaceholder } />
+                 <button 
+                  className="cart"
+                  onClick={() => { 
+                   this.props.dispatch(addToCart(p.id))
+                  }}>
+                   Add To Cart
+                  </button>
               </li>
              )
            })}

@@ -1,0 +1,46 @@
+body {
+  font-family: 'Ranchers', cursive;
+  font-size: 150%;
+}
+
+h1 {
+  font-size: 200%;
+}
+
+.message {
+  &.info {
+    color: green;
+  }
+  &.error {
+    color: red;
+  }
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.products {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .product {
+    list-style: none;
+    padding: 20px;
+
+    h3 {
+      font-size: 120%;
+      text-align: center;
+    }
+
+    img {
+      max-width: 300px;
+    }
+
+    button.cart {
+      display: block;
+    }
+  }
+}
