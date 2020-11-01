@@ -1,10 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getProducts } from '../apis/products'
-import { addToCart, setProducts } from '../actions/index'
-
-
-const imagePlaceholder = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fthealmanian.com%2Fwp-content%2Fuploads%2F2019%2F01%2Fproduct_image_thumbnail_placeholder.png&f=1&nofb=1"
+import { setProducts } from '../actions/index'
+import Products from './Products'
 class App extends React.Component {
    
   // React Only
@@ -37,7 +35,8 @@ class App extends React.Component {
     return (
       <>
         <h1>Go Shopping!</h1>
-        <ul className="products">
+        <Products products={this.props.products}/>
+        {/* <ul className="products">
            {products.map(p => {
              return ( 
                <li className="product" key={p.id}>
@@ -53,7 +52,7 @@ class App extends React.Component {
               </li>
              )
            })}
-        </ul>
+        </ul> */}
       </>
     )
   }
