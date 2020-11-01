@@ -13,6 +13,10 @@ class App extends React.Component {
   // The below could be moved to the Products component
   componentDidMount() {
     console.log('1-componentDidMount')
+    this.fetchProducts()
+  }
+
+  fetchProducts = () => {
     console.log('2-getProducts')
     // fetchProducts()
     getProducts()
@@ -25,6 +29,13 @@ class App extends React.Component {
 
         this.props.dispatch(setProducts(products))
       })
+  }
+
+  checkout = () => {
+    // get the cart items
+    // this.props.cart
+    
+    // send to api as new order
   }
 
   render() {
@@ -60,7 +71,8 @@ function mapStateToProps(globalState) {
     products: globalState.products,
     cartCount: globalState.cart.reduce((total, item) => {
       return total + item.quantity
-    }, 0)
+    }, 0),
+    cart: globalState.cart
   }
 }
 
