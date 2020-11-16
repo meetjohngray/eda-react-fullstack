@@ -1,6 +1,7 @@
 import request from 'superagent'
 
-export function getOrders(){
-  return request.get('/api/orders')
+export function createOrder(order){
+  return request.post('/api/orders')
+  .send(order) //Put the order in the request body
   .then(res => res.body)
 }
