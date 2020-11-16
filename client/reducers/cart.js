@@ -1,4 +1,5 @@
 import { ADD_TO_CART } from "../actions"
+import { EMPTY_CART } from "../actions"
 
 const initialState = []
 
@@ -38,8 +39,11 @@ const reducer = (state = initialState, action) => {
         }
 
         return newState
-        
-      default:
+      
+      case EMPTY_CART:
+        return initialState
+      
+        default:
         return state
   }
 }

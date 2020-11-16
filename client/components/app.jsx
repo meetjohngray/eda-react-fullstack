@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getProducts } from '../apis/products'
-import { creatOrder } from '../apis/orders'
-import { setProducts } from '../actions/index'
+import { createOrder } from '../apis/orders'
+import { emptyCart, setMessage, setProducts, clearMessage } from '../actions/index'
 import Products from './Products'
 class App extends React.Component {
    
@@ -38,10 +38,15 @@ class App extends React.Component {
     
     // send to api as new order
     const order = this.props.cart
-    creatOrder(order)
-      .then(() => {
-        
-      })
+    createOrder(order)
+    // console.log(order)
+      .then(orderDetails => {
+        this.props.dispatch(setMessage('info', 'New order created. Your code is: ' + orderDetails.order_code ))
+        this.props.dispatch(emptyCart())
+      })   
+      .catch(error  => {
+        this.props.dispatch(setMessage('error', 'No order created. Please try again.' ))
+    })
   }
 
   render() {
@@ -49,14 +54,15 @@ class App extends React.Component {
     // React Only
     // const products = this.state.products
     const products = this.props.products
-    
     const cartCount = this.props.cart.reduce((total, item) => total + item.quantity, 0)
+    console.log('cart', cartCount)
 
     return (
       <>
         <header>
           <h1>Go Shopping!</h1>
-          <h2>Cart ({cartCount})<button>Checkout</button></h2>
+          {this.props.message.text && <h2 className={["message", this.props.message.messageType].join(' ')}>{this.props.message.messageType.toUpperCase()}: {this.props.message.text} <button onClick={() => this.props.dispatch(clearMessage())}>x</button></h2>}
+          <h2>Cart ({cartCount})<button onClick={this.checkout}>Checkout</button></h2>
         </header>
         <Products products={products}/>
       </>
@@ -80,7 +86,8 @@ function mapStateToProps(globalState) {
     // cartCount: globalState.cart.reduce((total, item) => {
     //   return total + item.quantity
     // }, 0),
-    cart: globalState.cart
+    cart: globalState.cart,
+    message: globalState.message
   }
 }
 

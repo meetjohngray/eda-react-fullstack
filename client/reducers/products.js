@@ -1,16 +1,6 @@
 import { SET_PRODUCTS } from '../actions/index'
 
-const initialState = [
-  {
-  id: 1,
-  title: 'Shirt',
-  image: '',
-},
-{
-  id: 2,
-  title: 'Shoes',
-  image: '',
-}]
+const initialState = []
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
