@@ -61,7 +61,14 @@ class App extends React.Component {
       <>
         <header>
           <h1>Go Shopping!</h1>
-          {this.props.message.text && <h2 className={["message", this.props.message.messageType].join(' ')}>{this.props.message.messageType.toUpperCase()}: {this.props.message.text} <button onClick={() => this.props.dispatch(clearMessage())}>x</button></h2>}
+          {this.props.message.text &&
+           <h2 className={["message", this.props.message.messageType].join(' ')}>
+            {this.props.message.messageType.toUpperCase()}: 
+            {this.props.message.text} 
+            <button onClick={() => this.props.dispatch(clearMessage())}>
+              Clear
+            </button>
+            </h2>}
           <h2>Cart ({cartCount})<button onClick={this.checkout}>Checkout</button></h2>
         </header>
         <Products products={products}/>
