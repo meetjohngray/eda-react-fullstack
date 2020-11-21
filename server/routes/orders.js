@@ -16,15 +16,57 @@ router.post('/', (req, res) => {
       return order
     })
     .then(order => {
-      // Send an email to the orders team.
-      request.post('https://api.sendgrid.com/v3/mailsend')
-        .set('Authorization', 'Bearer ' + process.env.SENDGRID_API_KEY)
-
+      return sendEmail(order)
     })
     .catch(err => {
       console.log(err)
       res.status(500).json({ message: "Something went wrong"})
     }) 
 })
+
+// Send an email to the orders team.
+function sendEmail(order){
+   return request.post('https://api.sendgrid.com/v3/mail/send')
+   .set('Authorization', 'Bearer ' + process.env.SENDGRID_API_KEY)
+   .set('Content-Type', 'application/json')
+   .send({
+     personalizations: [
+       {
+         to: [
+           {
+             email: orderTeamEmailToAddress,
+             name: orderTeamEmailToAddress
+          }
+         ],
+         subject: 'New order ' + order.order_code,
+       }
+     ],
+       from: {
+         email: orderTeamEmailFromAddress,
+         name: orderTeamEmailFromAddress
+       },
+       reply_to: {
+         email: orderTeamEmailFromAddress,
+         name: orderTeamEmailFromAddress
+       },
+       content: [
+         {
+           type: 'text/plain',
+           value:`
+           Hi there!
+           
+           You have a new order: ${order.order_code}
+
+           Cheers`
+         }
+       ]
+   })
+   .then(() => {
+     console.log('email sent')
+   })
+   .catch(err => {
+     console.log('email NOT sent', err)
+   })
+}
 
 module.exports = router
